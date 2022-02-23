@@ -1,10 +1,10 @@
 package com.example.jpc
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +13,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,7 +29,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column() {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                ListenItem(name = "Zac Efr", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac Efr", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
+                ListenItem(name = "Zac", prof = "Actor")
                 ListenItem(name = "Zac Efr", prof = "Actor")
                 ListenItem(name = "Zac", prof = "Actor")
                 ListenItem(name = "Zac", prof = "Actor")
@@ -41,10 +53,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun ListenItem(name: String, prof: String) {
+    var counter = remember {
+        mutableStateOf(0)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+            .clickable {
+                counter.value++
+            },
         shape = RoundedCornerShape(16.dp),
         elevation = 5.dp
     ) {
@@ -60,7 +78,7 @@ private fun ListenItem(name: String, prof: String) {
                         .clip(CircleShape)
                     )
                 Column(modifier = Modifier.padding(start = 16.dp)) {
-                    Text(text = name)
+                    Text(text = counter.value.toString())
                     Text(text = prof)
                 }
             }
